@@ -24,7 +24,7 @@ class Page extends React.Component {
 					<tr><td style={tdstyle}>• Pretty good reusability</td><td><span className="btn btn-xs btn-success">GOOD</span></td></tr>
 					<tr><td style={tdstyle}>• Redux is not mandatory for the rest of the project</td><td><span className="btn btn-xs btn-success">GOOD</span></td></tr>
 					<tr><td style={tdstyle}>• Proptypes not set everywhere</td><td><span className="btn btn-xs btn-warning">TO IMPROVE</span></td></tr>
-					<tr><td style={tdstyle}>• Code quality can be improved</td><td><span className="btn btn-xs btn-warning">TO IMPROVE</span></td></tr>
+					<tr><td style={tdstyle}>• Code quality can be improved (example : use import everywhere)</td><td><span className="btn btn-xs btn-warning">TO IMPROVE</span></td></tr>
 					<tr><td style={tdstyle}>• Not much styling</td><td><span className="btn btn-xs btn-warning">TO IMPROVE</span></td></tr>
 					<tr><td style={tdstyle}>• Not yet documented</td><td><span className="btn btn-xs btn-danger">BAD</span></td></tr>
 					<tr><td style={tdstyle}>• Test coverage is low</td><td><span className="btn btn-xs btn-danger">BAD</span></td></tr>

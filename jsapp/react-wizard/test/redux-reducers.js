@@ -80,6 +80,17 @@ describe('Redux', function() {
 			})
 		});
 		
+		
+		it('should clear the data store on CANCEL', () => {
+			expect(
+					reducer({"wizardPageIndex": 1, wizardData:"anything"}, actions.cancel())
+			).to.deep.equal({
+				"wizardData": [],
+				"wizardPageIndex": 0,
+				"wizardPageValidity": []
+			})
+		});
+		
 	});
 });
 
