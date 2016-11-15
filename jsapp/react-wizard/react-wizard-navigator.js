@@ -12,6 +12,11 @@ var View = React.createClass({
 		this.props.onValidityChange(pageIndex, validity);
 	},
 	
+	pageChange: function(pageIndex, data) {
+		console.log('Change', data);
+		this.props.onChange(pageIndex, data);
+	},
+	
 	render: function() {
 		var currentPage;
 		var currentPageIndex = this.props.wizardPageIndex;
@@ -22,7 +27,9 @@ var View = React.createClass({
 		for (var ch of this.props.children) {
 			let pageIndex = nbPages;
 			ch = React.cloneElement(ch, {
-				onValidityChange: (validity) => this.pageValidityChange(pageIndex, validity)
+				data: this.props.wizardData[pageIndex] || {},
+				onValidityChange: (validity) => this.pageValidityChange(pageIndex, validity),
+				onChange: (data) => this.pageChange(pageIndex, data)
 			});
 			if (nbPages == currentPageIndex) {
 				currentPage = ch;
@@ -45,7 +52,10 @@ var View = React.createClass({
 		
 		if (currentPageIndex == -1) {
 			pages = (
-				<h1 className="text-center">Thank you !</h1>
+				<div>
+					<h1 className="text-center">Thank you !</h1>
+					<pre>{JSON.stringify(this.props.wizardData)}</pre>
+				</div>
 			)
 		}
 		
@@ -81,7 +91,7 @@ var View = React.createClass({
 	
 	onClickFinish: function() {
 		if (isset(this.props.onComplete)) {
-			this.props.onComplete();
+			this.props.onComplete(this.props.wizardData);
 		}
 		this.props.onClickFinish();
 	},
@@ -98,7 +108,8 @@ var View = React.createClass({
 function mapStateToProps(state) {
 	return {
 		wizardPageIndex: state.wizardPageIndex,
-		wizardPageValidity: state.wizardPageValidity
+		wizardPageValidity: state.wizardPageValidity,
+		wizardData: state.wizardData
 	}
 }
 
@@ -118,6 +129,9 @@ function mapDispatchToProps(dispatch) {
 		},
 		onValidityChange: (pageIndex, validity) => {
 			dispatch(actions.validityChange(pageIndex, validity));
+		},
+		onChange: (pageIndex, validity) => {
+			dispatch(actions.dataChange(pageIndex, validity));
 		}
 	}
 }

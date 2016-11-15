@@ -22,11 +22,18 @@ export const finish = () => {
 	}
 };
 
-
 export const validityChange = (pageIndex, validity) => {
 	return {
 		type: 'VALIDITY_CHANGE',
 		pageIndex: pageIndex,
 		validity: validity
+	}
+};
+
+export const dataChange = (pageIndex, data) => {
+	return {
+		type: 'DATA_CHANGE',
+		pageIndex: pageIndex,
+		data: data
 	}
 };

@@ -31,23 +31,17 @@ class Page extends React.Component {
 		
 		return (
 			<div>
-				<h2>Design Choices</h2>
+				<h2>Design Choices - Redux states</h2>
+				<p>Three states</p>
 				<ul>
 					<li>
-						To make the code as reusable as possible, Redux is only required inside the &lt;Wizard&gt; component.<br/>
-						(But it can be used on the whole project if that's what you want).
+						wizardPageIndex : index of the currently displayed page
 					</li>
 					<li>
-						Data passing &amp; validation : <br/>
-						The page reads its data via the data prop, and should call this.props.onChange() and this.props.onValidityChange() when data changes
-						<AceEditor
-								mode="javascript"
-								theme="monokai"
-								readOnly={true}
-								width="100%"
-						value={validityCode}>
-							
-						</AceEditor>
+						wizardPageValidity : Validity of the pages
+					</li>
+					<li>
+						wizardData : data passed by the pages on changes
 					</li>
 				</ul>
 			</div>

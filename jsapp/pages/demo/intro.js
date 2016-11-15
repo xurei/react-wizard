@@ -16,8 +16,9 @@ class Page extends React.Component {
 			<div>
 				<h2>A few things before we start</h2>
 				<ul>
-					<li>Time spent on the code : ~10h</li>
+					<li>Time spent on the code : ~12h</li>
 					<li>First use of Redux with React (I used Flux before)</li>
+					<li>Node.js server</li>
 				</ul>
 			</div>
 		)

@@ -11,7 +11,7 @@ class WizardPageView extends React.Component {
 }
 
 WizardPageView.propTypes = {
-	//onValidityChange: React.PropTypes.func.isRequired
+	data: React.PropTypes.any.isRequired,
 };
 
 module.exports = WizardPageView;

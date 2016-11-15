@@ -22,7 +22,7 @@ class Page extends React.Component {
 				<h2>Let's go schizophrenic : Peer-review of my own work</h2>
 				<table>
 					<tr><td style={tdstyle}>• Pretty good reusability</td><td><span className="btn btn-xs btn-success">GOOD</span></td></tr>
-					<tr><td style={tdstyle}>• Wizard 100% decoupled from the rest</td><td><span className="btn btn-xs btn-success">GOOD</span></td></tr>
+					<tr><td style={tdstyle}>• Redux is not mandatory for the rest of the project</td><td><span className="btn btn-xs btn-success">GOOD</span></td></tr>
 					<tr><td style={tdstyle}>• Proptypes not set everywhere</td><td><span className="btn btn-xs btn-warning">TO IMPROVE</span></td></tr>
 					<tr><td style={tdstyle}>• Code quality can be improved</td><td><span className="btn btn-xs btn-warning">TO IMPROVE</span></td></tr>
 					<tr><td style={tdstyle}>• Not much styling</td><td><span className="btn btn-xs btn-warning">TO IMPROVE</span></td></tr>

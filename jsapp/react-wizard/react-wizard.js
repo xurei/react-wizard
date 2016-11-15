@@ -4,7 +4,7 @@ const Provider = ReactRedux.Provider;
 const redux = require('redux');
 const App =  require('./reducers');
 
-let store = redux.createStore(App);
+let store = redux.createStore(App, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const WizardNavigator = require('./react-wizard-navigator');
 const WizardPage = require("./react-wizardpage");
