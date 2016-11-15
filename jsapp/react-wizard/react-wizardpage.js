@@ -7,11 +7,7 @@ class WizardPage extends React.Component {
 				this.props.onValidityChange(valid);
 			}
 		});
-		return (
-			<div>{wrappedPage}
-				
-			</div>
-		)
+		return wrappedPage;
 	}
 }
 

@@ -6,11 +6,6 @@ const actions = require('./actions');
 
 var View = React.createClass({
 	displayName: 'WizardNavigator',
-	getInitialState: function() {
-		return {};
-	},
-	componentDidMount: function() {
-	},
 	
 	pageValidityChange: function(pageIndex, validity) {
 		console.log('validity changed:'+validity);
@@ -46,7 +41,6 @@ var View = React.createClass({
 		var showCancel = (currentPageIndex >= 0);
 		var showPageCounter = (currentPageIndex >= 0);
 		
-		console.log(this.props.wizardPageValidity);
 		var enableNext = this.props.wizardPageValidity[currentPageIndex];// && currentPage.isValid();
 		
 		if (currentPageIndex == -1) {
