@@ -21,3 +21,12 @@ export const finish = () => {
 		type: 'FINISH'
 	}
 };
+
+
+export const validityChange = (pageIndex, validity) => {
+	return {
+		type: 'VALIDITY_CHANGE',
+		pageIndex: pageIndex,
+		validity: validity
+	}
+};

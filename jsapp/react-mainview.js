@@ -2,9 +2,12 @@ const React = require ("react");
 
 const Wizard = require("./react-wizard/react-wizard");
 const WizardPage = require("./react-wizard/react-wizardpage");
-import { Input, FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
 
-class Page1 extends React.Component {
+const WizardPageView = require('./react-wizard/react-wizardpageview');
+
+import { FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
+
+class Page1 extends WizardPageView {
 	state = {
 		value: ''
 	};
@@ -25,7 +28,8 @@ class Page1 extends React.Component {
 	}
 	
 	handleChange(e) {
-		this.setState({ value: e.target.value });
+		this.setState({ value: e.target.value }, null);
+		setTimeout(() => this.props.onValidityChange(this.isValid()), 10);
 	}
 	
 	render() {
@@ -50,39 +54,36 @@ class Page1 extends React.Component {
 	}
 }
 
-class Page2 extends React.Component {
+class Page2 extends WizardPageView {
 	isValid() {
 		return this.getValidationState() == 'success';
 	}
 	
 	render() {
-		return (
-				<p>Page 2</p>)
+		return (<p>Page 2</p>)
 	}
 }
 
-class Page3 extends React.Component {
+class Page3 extends WizardPageView {
 	
 	isValid() {
 		return this.getValidationState() == 'success';
 	}
 	
 	render() {
-		return (
-				<p>Page 3</p>)
+		return (<p>Page 3</p>)
 	}
 }
 
 var MainView = React.createClass({
 	render: function() {
-		console.log("render");
 		return (
-			<Wizard>
+			<Wizard onComplete={()=>alert('complete')} onCancel={() => alert('cancel')}>
+				<WizardPage page={<Page1/>}/>
 				<WizardPage page={<Page1/>}/>
 				<WizardPage page={<Page2/>}/>
-				<WizardPage page={<Page3/>}/>
 			</Wizard>
-		)
+		);
 	}
 });
 

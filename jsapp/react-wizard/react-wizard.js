@@ -6,7 +6,7 @@ const App =  require('./reducers');
 
 let store = redux.createStore(App);
 
-const WizardContent = require('./react-wizard-content');
+const WizardNavigator = require('./react-wizard-navigator');
 const WizardPage = require("./react-wizardpage");
 
 var View = React.createClass({
@@ -15,9 +15,9 @@ var View = React.createClass({
 	render: function() {
 		return (
 			<Provider store={store}>
-				<WizardContent>
+				<WizardNavigator {...this.props}>
 					{this.props.children}
-				</WizardContent>
+				</WizardNavigator>
 			</Provider>
 		);
 	},
@@ -26,7 +26,9 @@ var View = React.createClass({
 		children: React.PropTypes.oneOfType([
 			React.PropTypes.arrayOf(React.PropTypes.instanceOf(WizardPage)),
 			React.PropTypes.node,
-		])
+		]),
+		onCancel: React.PropTypes.func,
+		onComplete: React.PropTypes.func
 	}
 });
 

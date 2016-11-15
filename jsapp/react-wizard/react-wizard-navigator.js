@@ -1,36 +1,41 @@
 const React = require ("react");
 const ReactRedux = require('react-redux');
-const redux = require('redux');
+const isset = require('./isset');
 
 const actions = require('./actions');
-const WizardPage = require("./react-wizardpage");
 
 var View = React.createClass({
-	displayName: 'WizardContent',
+	displayName: 'WizardNavigator',
 	getInitialState: function() {
 		return {};
 	},
 	componentDidMount: function() {
 	},
 	
+	pageValidityChange: function(pageIndex, validity) {
+		console.log('validity changed:'+validity);
+		this.props.onValidityChange(pageIndex, validity);
+	},
+	
 	render: function() {
-		var onCancel = this.props.onCancel;
-		var onComplete = this.props.onComplete;
-		
-		var children = this.props.children;
-		
 		var currentPage;
-		
 		var currentPageIndex = this.props.wizardPageIndex;
 		
 		//Deciding which page to display
 		var nbPages = 0;
 		var pages = [];
-		for (var ch of children) {
+		for (var ch of this.props.children) {
+			let pageIndex = nbPages;
+			ch = React.cloneElement(ch, {
+				onValidityChange: (validity) => this.pageValidityChange(pageIndex, validity)
+			});
 			if (nbPages == currentPageIndex) {
 				currentPage = ch;
 			}
-			pages.push(<div key={"page"+nbPages} style={{display:(nbPages == currentPageIndex)?"block":"none"}}>{ch}</div>);
+			pages.push(
+				<div key={"page"+nbPages} style={{display:(nbPages == currentPageIndex)?"block":"none"}}>
+					{ch}
+				</div>);
 			++nbPages;
 		}
 		
@@ -41,13 +46,14 @@ var View = React.createClass({
 		var showCancel = (currentPageIndex >= 0);
 		var showPageCounter = (currentPageIndex >= 0);
 		
+		console.log(this.props.wizardPageValidity);
+		var enableNext = this.props.wizardPageValidity[currentPageIndex];// && currentPage.isValid();
+		
 		if (currentPageIndex == -1) {
 			pages = (
 				<h1 className="text-center">Thank you !</h1>
 			)
 		}
-		
-		console.log(currentPage);
 		
 		return (
 			<div style={{border: 'solid 1px silver', padding: "8px 7px"}}>
@@ -65,25 +71,40 @@ var View = React.createClass({
 						&nbsp; {showPageCounter ? (currentPageIndex+1 + " / " + nbPages) : ('')} &nbsp;
 						<button className="btn btn-primary"
 								onClick={this.props.onClickNext}
-								disabled={false}
+								disabled={!enableNext}
 								style={{display: (showNext) ? "inline-block":"none"}}>Next</button>
 						<button className="btn btn-success"
-								onClick={this.props.onClickFinish}
+								onClick={this.onClickFinish}
 								style={{display: (showFinish) ? "inline-block":"none"}}>Finish</button>
 						<button className="btn btn-warning pull-right"
-								onClick={this.props.onClickCancel}
+								onClick={this.onClickCancel}
 								style={{display: (showCancel) ? "inline-block":"none"}}>Cancel</button>
 					</div>
 				</div>
 			</div>
 		)
+	},
+	
+	onClickFinish: function() {
+		if (isset(this.props.onComplete)) {
+			this.props.onComplete();
+		}
+		this.props.onClickFinish();
+	},
+	
+	onClickCancel: function() {
+		if (isset(this.props.onCancel)) {
+			this.props.onCancel();
+		}
+		this.props.onClickCancel();
 	}
 	
 });
 
 function mapStateToProps(state) {
 	return {
-		wizardPageIndex: state.wizardPageIndex
+		wizardPageIndex: state.wizardPageIndex,
+		wizardPageValidity: state.wizardPageValidity
 	}
 }
 
@@ -96,10 +117,13 @@ function mapDispatchToProps(dispatch) {
 			dispatch(actions.prevPage())
 		},
 		onClickCancel: () => {
-			dispatch(actions.cancel())
+			dispatch(actions.cancel());
 		},
 		onClickFinish: () => {
-			dispatch(actions.finish())
+			dispatch(actions.finish());
+		},
+		onValidityChange: (pageIndex, validity) => {
+			dispatch(actions.validityChange(pageIndex, validity));
 		}
 	}
 }

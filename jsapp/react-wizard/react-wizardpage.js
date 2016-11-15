@@ -2,17 +2,20 @@ const React = require ("react");
 
 class WizardPage extends React.Component {
 	render() {
+		var wrappedPage = React.cloneElement(this.props.page, {
+			onValidityChange: (valid) => {
+				this.props.onValidityChange(valid);
+			}
+		});
 		return (
-			<div>
-				{this.props.page}
+			<div>{wrappedPage}
+				
 			</div>
 		)
 	}
 }
 
 WizardPage.propTypes = {
-	//isValid: React.PropTypes.func.isRequired
-	page: React.PropTypes.element.isRequired
 };
 
 module.exports = WizardPage;
