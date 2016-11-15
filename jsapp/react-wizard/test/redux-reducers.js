@@ -83,7 +83,7 @@ describe('Redux', function() {
 		
 		it('should clear the data store on CANCEL', () => {
 			expect(
-					reducer({"wizardPageIndex": 1, wizardData:"anything"}, actions.cancel())
+					reducer({"wizardPageIndex": 1, wizardData:"anything", wizardPageValidity: {0:true, 1:true}}, actions.cancel())
 			).to.deep.equal({
 				"wizardData": [],
 				"wizardPageIndex": 0,

@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const mongodb = require('../mymongodb');
 
-const path = require('path');
-
 /* GET users listing. */
 router.post('/', function (req, res, next) {
 	return mongodb.get().then((db) => {
