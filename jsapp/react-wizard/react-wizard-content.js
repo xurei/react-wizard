@@ -3,6 +3,7 @@ const ReactRedux = require('react-redux');
 const redux = require('redux');
 
 const actions = require('./actions');
+const WizardPage = require("./react-wizardpage");
 
 var View = React.createClass({
 	displayName: 'WizardContent',
@@ -18,25 +19,19 @@ var View = React.createClass({
 		
 		var children = this.props.children;
 		
-		var wizardPage;
+		var currentPage;
 		
 		var currentPageIndex = this.props.wizardPageIndex;
 		
-		if (currentPageIndex == -1) {
-			wizardPage = (
-				<h1 className="text-center">Thank you !</h1>
-			)
-		}
-		
+		//Deciding which page to display
 		var nbPages = 0;
+		var pages = [];
 		for (var ch of children) {
-			
-			if (ch.type.displayName === "WizardPage") {
-				if (nbPages == currentPageIndex) {
-					wizardPage = ch;
-				}
-				++nbPages;
+			if (nbPages == currentPageIndex) {
+				currentPage = ch;
 			}
+			pages.push(<div key={"page"+nbPages} style={{display:(nbPages == currentPageIndex)?"block":"none"}}>{ch}</div>);
+			++nbPages;
 		}
 		
 		//Determine wheter or not to show some buttons
@@ -46,10 +41,20 @@ var View = React.createClass({
 		var showCancel = (currentPageIndex >= 0);
 		var showPageCounter = (currentPageIndex >= 0);
 		
+		if (currentPageIndex == -1) {
+			pages = (
+				<h1 className="text-center">Thank you !</h1>
+			)
+		}
+		
+		console.log(currentPage);
+		
 		return (
 			<div style={{border: 'solid 1px silver', padding: "8px 7px"}}>
 				
-				<div className="page" style={{minHeight: "300px"}}>{wizardPage}</div>
+				<div className="page" style={{minHeight: "300px"}}>
+					{pages}
+				</div>
 				
 				<div className="wizard-view-navigation">
 					<div className="text-center">
@@ -60,6 +65,7 @@ var View = React.createClass({
 						&nbsp; {showPageCounter ? (currentPageIndex+1 + " / " + nbPages) : ('')} &nbsp;
 						<button className="btn btn-primary"
 								onClick={this.props.onClickNext}
+								disabled={false}
 								style={{display: (showNext) ? "inline-block":"none"}}>Next</button>
 						<button className="btn btn-success"
 								onClick={this.props.onClickFinish}

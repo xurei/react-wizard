@@ -7,6 +7,7 @@ const App =  require('./reducers');
 let store = redux.createStore(App);
 
 const WizardContent = require('./react-wizard-content');
+const WizardPage = require("./react-wizardpage");
 
 var View = React.createClass({
 	displayName: 'Wizard',
@@ -20,6 +21,13 @@ var View = React.createClass({
 			</Provider>
 		);
 	},
+	
+	propTypes: {
+		children: React.PropTypes.oneOfType([
+			React.PropTypes.arrayOf(React.PropTypes.instanceOf(WizardPage)),
+			React.PropTypes.node,
+		])
+	}
 });
 
 module.exports = View;

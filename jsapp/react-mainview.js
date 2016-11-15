@@ -2,62 +2,85 @@ const React = require ("react");
 
 const Wizard = require("./react-wizard/react-wizard");
 const WizardPage = require("./react-wizard/react-wizardpage");
+import { Input, FormGroup, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap';
+
+class Page1 extends React.Component {
+	state = {
+		value: ''
+	};
+	
+	constructor(props) {
+		super(props);
+	}
+	
+	getValidationState() {
+		const length = this.state.value.length;
+		if (length > 10) return 'success';
+		else if (length > 5) return 'warning';
+		else if (length > 0) return 'error';
+	}
+	
+	isValid() {
+		return this.getValidationState() == 'success';
+	}
+	
+	handleChange(e) {
+		this.setState({ value: e.target.value });
+	}
+	
+	render() {
+		return (
+			<form>
+				<FormGroup
+						controlId="formBasicText"
+						validationState={this.getValidationState()}
+				>
+					<ControlLabel>Working example with validation</ControlLabel>
+					<FormControl
+							type="text"
+							value={this.state.value}
+							placeholder="Enter text"
+							onChange={this.handleChange.bind(this)}
+					/>
+					<FormControl.Feedback />
+					<HelpBlock>Validation is based on string length.</HelpBlock>
+				</FormGroup>
+			</form>
+		)
+	}
+}
+
+class Page2 extends React.Component {
+	isValid() {
+		return this.getValidationState() == 'success';
+	}
+	
+	render() {
+		return (
+				<p>Page 2</p>)
+	}
+}
+
+class Page3 extends React.Component {
+	
+	isValid() {
+		return this.getValidationState() == 'success';
+	}
+	
+	render() {
+		return (
+				<p>Page 3</p>)
+	}
+}
 
 var MainView = React.createClass({
-	getInitialState: function() {
-		/*var hash = document.location.hash;
-		if (Util.isset(hash) && hash.length > 0)
-		{
-			hash = hash.substr(1);
-			var route = hash.split("/");
-			if (route[0] == "game" && route.length >= 4) {
-				return { gameId: route[1], playerId: route[2], playerSecret: route[3] };
-			}
-		}
-		return { gameId:null };*/
-		return {};
-	},
-	componentDidMount: function() {
-		/*var me = this;
-		GameJoinStore.register(function() {
-			console.log("Joined game");
-			var data = GameJoinStore.getGame();
-			console.log(data);
-			document.location.hash = "#game/" + data.id + "/" + data.player.id + "/" + data.player.secret;
-			me.setState({gameId: data.id, playerId: data.player.id, playerSecret: data.player.secret});
-		});*/
-	},
-	shouldComponentUpdate: function(nextProps, nextState) {
-		return JSON.stringify(this.props) !== JSON.stringify(nextProps) || JSON.stringify(this.state) !== JSON.stringify(nextState);
-	},
-	
 	render: function() {
-		/*if (Util.isset(this.state.gameId)) {
-			return (
-					<div>
-						<GameView gameId={this.state.gameId} playerId={this.state.playerId} playerSecret={this.state.playerSecret}></GameView>
-					</div>
-			);
-		}
-		else {
-			return (
-					<div>
-						<GamesView></GamesView>
-					</div>
-			);
-		}*/
-		
-		 /*onCancel={onCancel}
-		 onComplete={onComplete}*/
-		/*<WizardPage page={MyWizPage1}/>
-		 <WizardPage page={MyWizPage2}/>
-		 <WizardPage page={MyWizPage3}/>*/
-		
+		console.log("render");
 		return (
 			<Wizard>
-				<WizardPage page="page1"/>
-				<WizardPage page="page2"/>
-				<WizardPage page="page3"/>
+				<WizardPage page={<Page1/>}/>
+				<WizardPage page={<Page2/>}/>
+				<WizardPage page={<Page3/>}/>
 			</Wizard>
 		)
 	}

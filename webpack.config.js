@@ -4,6 +4,8 @@ console.log(path.resolve(__dirname, "jsapp"));
 
 module.exports = {
 	entry: "./jsapp/main.js",
+
+	devtool: "#inline-source-map",
 	
 	output: {
 		path: __dirname,
@@ -24,7 +26,7 @@ module.exports = {
 				
 				// Options to configure babel with
 				query: {
-					plugins: ['transform-runtime'],
+					plugins: ['transform-runtime',"transform-class-properties"],
 					presets: ['es2015', 'react'],
 				}
 			},
