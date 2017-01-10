@@ -23,6 +23,15 @@ var View = React.createClass({
 					<WizardPage page={<Testing data={{}}/>}/>
 					<WizardPage page={<SelfReview/>}/>
 				</Wizard>
+				
+				<Wizard>
+					<WizardPage page={<Intro data={{}}/>}/>
+					<WizardPage page={<DesignChoices data={{}}/>}/>
+					<WizardPage page={<DesignChoices2 data={{}}/>}/>
+					<WizardPage page={<FormPage data={{}} title="Form validation"/>}/>
+					<WizardPage page={<Testing data={{}}/>}/>
+					<WizardPage page={<SelfReview/>}/>
+				</Wizard>
 			</div>
 		);
 	}
